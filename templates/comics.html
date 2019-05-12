@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Comics</title>
 </head>
 <body>
 {% block content %}
+{% if delete %}
+  <h1>Something has been Deleted!</h1>
+{% endif %}
 <table>
     <th>Title</th>
     <th>Price</th>

@@ -6,30 +6,24 @@ app = Flask(__name__)
 app.debug = True
 
 
-@app.route('/')
+@app.route("/")
 def hello_world():
-    return 'Hello, World!'
+    return "Hello, World!"
 
 
-@app.route('/comics/')
-def comics():
+@app.route("/comics/")
+@app.route("/comics/<delete>/")
+def comics(delete=None):
     comic_list = get_html()
-    run_insert(comic_list)
-    return render_template('comics.html', comic_list=comic_list)
+    run_insert(comic_list, delete)
+    return render_template("comics.html", comic_list=comic_list, delete=delete)
 
 
-@app.route('/user/')
-@app.route('/user/<username>/')
+@app.route("/user/")
+@app.route("/user/<username>/")
 def show_user_profile(username=None):
     # show the user profile for that user
+    name = username or "Have My By Back"
+    return render_template("user.html", name=name)
 
-    thisthing = username or 'Have My By Back'
-
-    print(url_for('comics', username='John Doe'))
-    return render_template('user.html', thisthing=thisthing)
-
-# @app.route('/hello/')
-# @app.route('/hello/<name>')
-# def hello(name=None):
-#     return render_template('hello.html', name=name)
 # python -m flask run
